@@ -1,0 +1,27 @@
+<table *ngIf="transactions.length > 0" class="table table-bordered table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">
+        Transaction Reference
+      </th>
+      <th scope="col">
+        Errors
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let transaction of transactions">
+      <th scope="row">{{transaction.transactionReference}}</th>
+      <td class="table-danger" *ngIf="transaction.errors.length > 0">
+        <ul>
+          <li *ngFor="let error of transaction.errors">
+            {{error.message}}
+          </li>
+        </ul>
+      </td>
+      <td class="table-success" *ngIf="transaction.errors.length === 0">
+        No errors found.
+      </td>
+    </tr>
+  </tbody>
+</table>
