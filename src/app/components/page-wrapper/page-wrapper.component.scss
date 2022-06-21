@@ -1,0 +1,19 @@
+:host {
+  .page-container {
+    header {
+      height: 60px;
+      width: 100%;
+    }
+
+    main {
+      padding: 32px 0;
+      min-height: calc(100vh - 148px);
+      box-sizing: border-box;
+    }
+
+    footer {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 16px 0;
+    }
+  }
+}
