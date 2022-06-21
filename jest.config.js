@@ -17,7 +17,7 @@ module.exports = {
   moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
   collectCoverage: true,
   coverageReporters: ['html'],
-  transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
+  transformIgnorePatterns: ['/node_modules/?!@angular'],
   globals: {
     'ts-jest': {
       isolatedModules: true
