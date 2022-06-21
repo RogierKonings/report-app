@@ -1,0 +1,11 @@
+<app-page-wrapper>
+  <div class="container">
+    <section>
+      <app-file-upload name="MT940 upload" acceptedTypes=".csv, .xml" (inputChange)="openFile($event)"></app-file-upload>
+    </section>
+    <section>
+      <!-- <app-report-table *ngIf="MT940report" [report]="MT940report"></app-report-table> -->
+      <!-- <div class="alert alert-danger" role="alert" *ngIf="modelError">Something went wrong!</div> -->
+    </section>
+  </div>
+</app-page-wrapper>
