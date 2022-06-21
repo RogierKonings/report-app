@@ -1,23 +1,23 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Observable, take } from 'rxjs';
 
-import { ReportFile } from 'src/app/models';
+import { ValidationField } from 'src/app/models';
 import { ReportService } from 'src/app/services/report.service';
-
-// import { ValidationField } from 'src/app/models/transaction.model';
 
 @Component({
   selector: 'app-report-page',
   templateUrl: './report-page.component.html',
   styleUrls: ['./report-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReportPageComponent {
+  public transactions$: Observable<ValidationField[]>;
 
-  constructor(
-    private reportService: ReportService
-  ) {}
+  constructor(private reportService: ReportService) {
+    this.transactions$ = this.reportService.report$;
+  }
 
-  public async openFile(file: File) {
-    this.reportService.createReport(file);
+  public openFile(file: File): void {
+    this.reportService.createReport(file).pipe(take(1)).subscribe();
   }
 }

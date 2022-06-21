@@ -5,16 +5,15 @@ import { Injectable } from '@angular/core';
 
 import * as IBAN from 'iban';
 
-import { MT940 } from 'src/app/models/mt940.model';
-import { ValidationField, ValidationErrorMessages } from 'src/app/models/validation.model';
-import { isUniqueValue, isValidEndBalance, isNumber } from '../utils/validate.utils';
+import { MT940, ValidationField, ValidationErrorMessages } from '../models';
+import { isNumeric, isUniqueValue, isValidEndBalance } from '../utils/validate.utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ValidationService {
 
-  public validateMT940(values: Array<MT940>): Array<ValidationField> {
+  public validateMT940(values: MT940[]): ValidationField[] {
 
     return values.map((mt940: MT940) => {
       const errors = [];
@@ -23,7 +22,7 @@ export class ValidationService {
           message: ValidationErrorMessages.TransactionReferenceNotUnique
         });
       }
-      if (!isNumber(mt940.transactionReference)) {
+      if (!isNumeric(mt940.transactionReference)) {
         errors.push({
           message: ValidationErrorMessages.TransactionReferenceNotValidNumber
         });
@@ -33,17 +32,17 @@ export class ValidationService {
           message: ValidationErrorMessages.TransactionReferenceNotUnique
         });
       }
-      if (!isNumber(mt940.startBalance)) {
+      if (!isNumeric(mt940.startBalance)) {
         errors.push({
           message: ValidationErrorMessages.StartBalanceNotValidNumber
         });
       }
-      if (!isNumber(mt940.mutation)) {
+      if (!isNumeric(mt940.mutation)) {
         errors.push({
           message: ValidationErrorMessages.MutationNotValidNumber
         });
       }
-      if (!isNumber(mt940.endBalance)) {
+      if (!isNumeric(mt940.endBalance)) {
         errors.push({
           message: ValidationErrorMessages.EndBalanceNotValidNumber
         });

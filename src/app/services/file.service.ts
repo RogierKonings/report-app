@@ -1,35 +1,32 @@
 import { Injectable } from '@angular/core';
-import { Observable, Observer, Subject } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
 
-import { FileTypes, ReportFile } from 'src/app/models';
+import { isSupportedType, isValidString } from 'src/app/utils/validate.utils';
+import { ReportFile } from 'src/app/models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FileService {
-  private _file: Subject<File> = new Subject();
-
-  public readonly file$: Observable<File> = this._file.asObservable();
-
   public readFileContent(file: File): Observable<ReportFile> {
     const fileReader = new FileReader();
     return new Observable((obs: Observer<ReportFile>) => {
+      const { name, type } = file;
       fileReader.readAsText(file);
-      const { name } = file;
       fileReader.onload = () => {
-        if (!this.isSupportedType(file)) {
-          obs.error({ error: { name, errorMessage: 'not supported type' } });
+        const content = fileReader.result as string;
+        if (!isSupportedType(type)) {
+          obs.error({ error: { name, message: `${type} is not a supported type` } });
         }
-        obs.next({ fileContent: fileReader.result as string});
+        if (!isValidString(content)) {
+          obs.error({ error: { name, message: 'the output is not a valid string' } });
+        }
+        obs.next({content});
         obs.complete();
       };
       fileReader.onerror = () => {
-        obs.error({ error: { name, errorMessage: 'invalid file' } });
+        obs.error({ error: { name, message: 'the file is invalid' } });
       };
     });
-  }
-
-  private isSupportedType(file: File): boolean {
-    return file.type === FileTypes.CSV || file.type === FileTypes.XML;
   }
 }

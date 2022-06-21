@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { ReportFile } from 'src/app/models/report.model';
 
 @Component({
   selector: 'app-file-upload',

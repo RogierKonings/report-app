@@ -1,6 +1,6 @@
 export interface ValidationField {
   transactionReference: number;
-  errors: Array<ValidationError>;
+  errors: ValidationError[];
 }
 
 export interface ValidationError {

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { TransactionField } from 'src/app/models';
+import { ValidationField } from 'src/app/models';
 
 @Component({
   selector: 'app-report-table',
@@ -10,6 +10,6 @@ import { TransactionField } from 'src/app/models';
 })
 export class ReportTableComponent {
 
-  @Input() transactions: Array<TransactionField> = []
+  @Input() transactions: ValidationField[] = []
 
 }

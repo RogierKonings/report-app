@@ -14,13 +14,8 @@ import {
   providedIn: 'root',
 })
 export class CSVService implements MT940Parser {
-  // public getMT940(data: string | ArrayBuffer): Observable<Array<MT940>> {
-  //   const records = (data as string).split(/\r\n|\n/);
-  //   const headers = (records[0] as string).split(',');
-  //   return this.parseToList(records, headers.length);
-  // }
 
-  mapToMT940(record: Array<string>): MT940 {
+  mapToMT940(record: string[]): MT940 {
     return {
       transactionReference: Number(record[0].trim()),
       accountNumber: record[1].trim(),
@@ -34,15 +29,11 @@ export class CSVService implements MT940Parser {
   parseToMT940List(
     data: string,
     options: CSVParserOptions
-  ): Array<MT940> {
+  ): MT940[] {
     const records = (data as string).split(/\r\n|\n/);
-    let headerLength = 0;
-    let startRecord = 0;
-    if (options.hasHeader && records.length > 0) {
-      headerLength = (records[0] as string).split(options.delimiter).length;
-      startRecord = 1;
-    }
-    const mt940arr: Array<MT940> = [];
+    const headerLength = (records[0] as string).split(options.delimiter).length;
+    const startRecord = 1;
+    const mt940arr: MT940[] = [];
     for (let i = startRecord; i < records.length; i++) {
       const splitRecords = (records[i] as string).split(options.delimiter);
       if (splitRecords.length === headerLength) {
