@@ -16,6 +16,4 @@ export const isSupportedType = (type: string): boolean =>
   type === FileTypes.CSV || type === FileTypes.XML;
 
 export const isNumeric = (value: unknown): boolean =>
-  typeof value === 'number' ||
-  value instanceof Number ||
-  (isValidString(value) && !isNaN(<unknown>value as number) && !isNaN(parseFloat(value)));
+  (!isNaN(<unknown>value as number) && !isNaN(parseFloat(<unknown>value as string)));
