@@ -12,10 +12,10 @@ import { ReportTableModule } from 'src/app/components/report-table/report-table.
     CommonModule,
     PageWrapperModule,
     FileUploadModule,
-    ReportTableModule
+    ReportTableModule,
   ],
   declarations: [ReportPageComponent],
   providers: [],
-  exports: [ReportPageComponent]
+  exports: [ReportPageComponent],
 })
 export class ReportPageModule {}

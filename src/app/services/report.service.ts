@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 
-import { FileTypes } from 'src/app/models';
+import { FileTypes } from '../models';
 
-import { CSVService } from 'src/app/services/csv.service';
-import { XMLService } from 'src/app/services/xml.service';
-import { ValidationService } from 'src/app/services/validation.service';
-import { FileService } from 'src/app/services/file.service';
+import { CSVService } from './csv.service';
+import { XMLService } from './xml.service';
+import { ValidationService } from './validation.service';
+import { FileService } from './file.service';
 /**
  * Service responsible for creating a report of a MT940 validation
  */
@@ -40,6 +40,7 @@ export class ReportService {
   public createReport(file: File): Observable<ValidationField[] | Error> {
     const fileContent$ = this.fileService.readFileContent(file);
     return fileContent$.pipe(
+      tap(console.log),
       filter(fileContent => isValidString(fileContent?.content)),
       switchMap(({ content }) =>
         file.type === FileTypes.CSV

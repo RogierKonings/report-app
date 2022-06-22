@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { ReportTableComponent } from './report-table.component';
 
+import { MatTableModule } from '@angular/material/table';
+import { MatListModule } from '@angular/material/list';
+
 @NgModule({
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule, MatTableModule, MatListModule],
   declarations: [ReportTableComponent],
   providers: [],
-  exports: [ReportTableComponent]
+  exports: [ReportTableComponent],
 })
 export class ReportTableModule {}

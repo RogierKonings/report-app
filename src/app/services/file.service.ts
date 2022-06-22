@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
 
-import { isSupportedType, isValidString } from 'src/app/utils/validate.utils';
-import { ReportFile } from 'src/app/models';
+import { isSupportedType, isValidString } from '../utils/validate.utils';
+import { ReportFile } from '../models';
 
 @Injectable({
   providedIn: 'root',

@@ -12,4 +12,6 @@ export class ReportTableComponent {
 
   @Input() transactions: ValidationField[] = []
 
+  displayedColumns: string[] = ['transaction', 'error'];
+
 }

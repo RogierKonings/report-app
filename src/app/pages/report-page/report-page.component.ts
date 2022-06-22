@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Observable, take } from 'rxjs';
+import { catchError, Observable, Subject, take } from 'rxjs';
 
-import { ValidationField } from 'src/app/models';
-import { ReportService } from 'src/app/services/report.service';
+import { ValidationField } from '../../models';
+import { ReportService } from '../../services/report.service';
 
 @Component({
   selector: 'app-report-page',
@@ -13,11 +13,23 @@ import { ReportService } from 'src/app/services/report.service';
 export class ReportPageComponent {
   public transactions$: Observable<ValidationField[]>;
 
+  private _error: Subject<Error> = new Subject();
+  public readonly error$ = this._error.asObservable();
+
   constructor(private reportService: ReportService) {
     this.transactions$ = this.reportService.report$;
   }
 
   public openFile(file: File): void {
-    this.reportService.createReport(file).pipe(take(1)).subscribe();
+    this.reportService
+      .createReport(file)
+      .pipe(
+        take(1),
+        catchError(({ error }) => {
+          this._error.next(error);
+          throw error;
+        })
+      )
+      .subscribe();
   }
 }
