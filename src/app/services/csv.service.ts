@@ -15,6 +15,18 @@ import {
   providedIn: 'root',
 })
 export class CSVService implements MT940Parser {
+
+  parseToMT940List(
+    data: string,
+    options: CSVParserOptions
+  ): Observable<MT940[]> {
+    console.log('records:', data.split(/\r\n|\n/))
+    const records = data.split(/\r\n|\n/).slice(1, -1);
+    return of(
+      records.map(record => this.mapToMT940(record.split(options.delimiter)))
+    );
+  }
+
   mapToMT940(record: string[]): MT940 {
     return {
       transactionReference: Number(record[0]),
@@ -24,18 +36,5 @@ export class CSVService implements MT940Parser {
       mutation: Number(record[4]),
       endBalance: Number(record[5]),
     };
-  }
-
-  parseToMT940List(data: string, options: CSVParserOptions): Observable<MT940[] | Error> {
-    const records = data.split(/\r\n|\n/).slice(1, -1);
-    return of(records.map(record =>
-      this.mapToMT940(record.split(options.delimiter))
-    )).pipe(map(mt940arr => {
-      if (mt940arr.every((mt940) => Object.keys(mt940).length === Object.keys(mt940arr[0]).length)) {
-        return mt940arr;
-      }
-      return new Error('Unable to parse the text/xml type')
-      // throwError(() => new Error('Unable to parse the text/xml type'))
-    }))
   }
 }

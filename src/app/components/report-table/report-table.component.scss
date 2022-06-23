@@ -1,5 +1,10 @@
 :host {
-  table {
+  .report-table {
     margin-top: 24px;
+
+    .table-item {
+      padding: 0 16px;
+      font-size: 1rem;
+    }
   }
 }

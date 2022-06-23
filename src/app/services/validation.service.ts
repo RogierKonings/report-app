@@ -48,7 +48,7 @@ export class ValidationService {
         });
       }
       if (
-        !isValidEndBalance(mt940)) {
+        !isValidEndBalance(mt940.startBalance, mt940.mutation, mt940.endBalance)) {
           errors.push({
             message: ValidationErrorMessages.EndBalanceNotValidCalculation
           });

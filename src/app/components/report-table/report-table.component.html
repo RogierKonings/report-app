@@ -1,32 +1,4 @@
-<!-- <table *ngIf="transactions.length > 0">
-  <thead>
-    <tr>
-      <th scope="col">
-        Transaction Reference
-      </th>
-      <th scope="col">
-        Errors
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let transaction of transactions">
-      <th scope="row">{{transaction.transactionReference}}</th>
-      <td *ngIf="transaction.errors.length > 0">
-        <ul>
-          <li *ngFor="let error of transaction.errors">
-            {{error.message}}
-          </li>
-        </ul>
-      </td>
-      <td *ngIf="transaction.errors.length === 0">
-        No errors found.
-      </td>
-    </tr>
-  </tbody>
-</table> -->
-
-<table mat-table [dataSource]="transactions">
+<table *ngIf="transactions.length > 0" mat-table class="report-table" [dataSource]="transactions" aria-label="MT940 Report">
 
   <!-- Transaction Reference Column -->
   <ng-container matColumnDef="transaction">
@@ -38,11 +10,12 @@
   <ng-container matColumnDef="error">
     <th mat-header-cell *matHeaderCellDef> Validation Errors </th>
     <td mat-cell *matCellDef="let element">
-      <mat-list>
+      <mat-list *ngIf="element.errors.length > 0">
         <mat-list-item *ngFor="let error of element.errors">
           <span class="alert-danger">{{error.message}}</span>
         </mat-list-item>
       </mat-list>
+      <div *ngIf="element.errors.length === 0" class="table-item">No errors found!</div>
     </td>
   </ng-container>
 

@@ -1,4 +1,4 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject, waitForAsync } from '@angular/core/testing';
 
 import { XMLService } from './xml.service';
 
@@ -42,9 +42,8 @@ describe('XMLService', () => {
   }));
 
   describe('Create MT940 from XML', () => {
-    it('return MT940 Object in case of valid XML format', inject(
-      [XMLService],
-      (service: XMLService) => {
+    it('return MT940 Object in case of valid XML format', waitForAsync(
+      inject([XMLService], (service: XMLService) => {
         const response: MT940[] = [
           {
             transactionReference: 164702,
@@ -70,18 +69,22 @@ describe('XMLService', () => {
           .subscribe(result => {
             expect(result).toEqual(response);
           });
-      }
+      })
     ));
 
-    it('should throw an error in case of invalid CSV format', inject(
-      [XMLService],
-      (service: XMLService) => {
-        expect(() => {
-          service.parseToMT940List(InvalidMT940XMLStub, {
+    it('should throw an error in case of invalid CSV format', waitForAsync(
+      inject([XMLService], (service: XMLService) => {
+        service
+          .parseToMT940List(InvalidMT940XMLStub, {
             attrkey: 'attribute',
+          })
+          .subscribe({
+            error: err =>
+              expect(err).toEqual(
+                new Error('Unable to parse the text/xml type')
+              ),
           });
-        }).toThrowError();
-      }
+      })
     ));
   });
 });
