@@ -5,7 +5,7 @@
     </section>
     <section>
       <app-report-table *ngIf="transactions$ | async as transactions" [transactions]="transactions"></app-report-table>
-      <span *ngIf="error$ | async as error" class="alert alert-danger" role="alert">{{error.message}}</span>
+      <span *ngIf="error$ | async as error" class="alert-danger" role="alert">{{error}}</span>
     </section>
   </div>
 </app-page-wrapper>

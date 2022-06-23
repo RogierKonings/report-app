@@ -16,16 +16,16 @@ export class FileService {
       fileReader.onload = () => {
         const content = fileReader.result as string;
         if (!isSupportedType(type)) {
-          obs.error({ error: { name, message: `${type} is not a supported type` } });
+          obs.error(new Error(`${name} with ${type} is not a supported type`));
         }
         if (!isValidString(content)) {
-          obs.error({ error: { name, message: 'the output is not a valid string' } });
+          obs.error(new Error(`the output from ${name} is not a valid string`));
         }
         obs.next({content});
         obs.complete();
       };
       fileReader.onerror = () => {
-        obs.error({ error: { name, message: 'the file is invalid' } });
+        obs.error(new Error(`${type} is invalid`));
       };
     });
   }

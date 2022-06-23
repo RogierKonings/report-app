@@ -6,24 +6,22 @@ import { Injectable } from '@angular/core';
 import * as XmlParser from 'xml2js';
 
 import { MT940, MT940Parser } from 'src/app/models/mt940.model';
+import { catchError, filter, from, map, Observable, of, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class XMLService implements MT940Parser {
-  parseToMT940List(data: string, options: XmlParser.ParserOptions): MT940[] {
-    let mt940arr: MT940[] = [];
-    XmlParser.parseString(data, options, (error, result) => {
-      const parsedRecords = result?.records?.record;
-      if (parsedRecords) {
-        mt940arr = parsedRecords.map((record: unknown) =>
-          this.mapToMT940(record)
-        );
-      } else {
-        throw new Error('Unable to parse the text/xml type');
-      }
-    });
-    return mt940arr;
+  parseToMT940List(
+    data: string,
+    options: XmlParser.ParserOptions
+  ): Observable<MT940[] | Error> {
+    return from(XmlParser.parseStringPromise(data, options)).pipe(
+      map(result => result?.records?.record),
+      filter(records => Array.isArray(records)),
+      map(records => records.map((record: unknown) => this.mapToMT940(record))),
+      catchError(_ => throwError(() => new Error('Unable to parse the text/xml type')))
+    );
   }
 
   mapToMT940(record: any): MT940 {

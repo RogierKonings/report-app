@@ -25,9 +25,9 @@ export class ReportPageComponent {
       .createReport(file)
       .pipe(
         take(1),
-        catchError(({ error }) => {
-          this._error.next(error);
-          throw error;
+        catchError((err) => {
+          this._error.next(err);
+          throw err;
         })
       )
       .subscribe();

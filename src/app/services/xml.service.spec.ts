@@ -42,36 +42,46 @@ describe('XMLService', () => {
   }));
 
   describe('Create MT940 from XML', () => {
-    it('return MT940 Object in case of valid XML format', inject([XMLService], (service: XMLService) => {
-      const result: Array<MT940> = service.parseToMT940List(ValidMT940XMLStub, {
-        attrkey: 'attribute',
-      });
-      const response: Array<MT940> = [
-        {
-          transactionReference: 164702,
-          accountNumber: 'NL46ABNA0625805417',
-          description: 'Flowers for Rik Dekker',
-          startBalance: 81.89,
-          mutation: 5.99,
-          endBalance: 87.88
-        },
-        {
-          transactionReference: 189177,
-          accountNumber: 'NL27SNSB0917829871',
-          description: 'Subscription for Erik Dekker',
-          startBalance: 5429,
-          mutation: -939,
-          endBalance: 6368
-        }];
-      expect(result).toEqual(response);
-    }));
+    it('return MT940 Object in case of valid XML format', inject(
+      [XMLService],
+      (service: XMLService) => {
+        const response: MT940[] = [
+          {
+            transactionReference: 164702,
+            accountNumber: 'NL46ABNA0625805417',
+            description: 'Flowers for Rik Dekker',
+            startBalance: 81.89,
+            mutation: 5.99,
+            endBalance: 87.88,
+          },
+          {
+            transactionReference: 189177,
+            accountNumber: 'NL27SNSB0917829871',
+            description: 'Subscription for Erik Dekker',
+            startBalance: 5429,
+            mutation: -939,
+            endBalance: 6368,
+          },
+        ];
+        service
+          .parseToMT940List(ValidMT940XMLStub, {
+            attrkey: 'attribute',
+          })
+          .subscribe(result => {
+            expect(result).toEqual(response);
+          });
+      }
+    ));
 
-    it('should throw an error in case of invalid CSV format', inject([XMLService], (service: XMLService) => {
-      expect(() => {
-        service.parseToMT940List(InvalidMT940XMLStub, {
-          attrkey: 'attribute',
-        });
-      }).toThrowError();
-    }));
+    it('should throw an error in case of invalid CSV format', inject(
+      [XMLService],
+      (service: XMLService) => {
+        expect(() => {
+          service.parseToMT940List(InvalidMT940XMLStub, {
+            attrkey: 'attribute',
+          });
+        }).toThrowError();
+      }
+    ));
   });
 });

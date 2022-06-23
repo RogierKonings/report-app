@@ -1,3 +1,4 @@
+import { MT940 } from 'src/app/models/mt940.model';
 import { Injectable } from '@angular/core';
 
 import { FileTypes } from '../models';
@@ -9,17 +10,8 @@ import { FileService } from './file.service';
 /**
  * Service responsible for creating a report of a MT940 validation
  */
-import {
-  filter,
-  map,
-  tap,
-  Observable,
-  ReplaySubject,
-  switchMap,
-  toArray,
-} from 'rxjs';
+import { map, tap, Observable, ReplaySubject, switchMap } from 'rxjs';
 import { ValidationField } from '../models';
-import { isValidString } from '../utils/validate.utils';
 
 @Injectable({
   providedIn: 'root',
@@ -38,20 +30,16 @@ export class ReportService {
   ) {}
 
   public createReport(file: File): Observable<ValidationField[] | Error> {
-    const fileContent$ = this.fileService.readFileContent(file);
-    return fileContent$.pipe(
-      tap(console.log),
-      filter(fileContent => isValidString(fileContent?.content)),
+    return this.fileService.readFileContent(file).pipe(
       switchMap(({ content }) =>
         file.type === FileTypes.CSV
-          ? this.csvService.parseToMT940List(content as string, {
+          ? (this.csvService.parseToMT940List(content, {
               delimiter: ',',
-            })
-          : this.xmlService.parseToMT940List(content as string, {
+            }) as Observable<MT940[]>)
+          : (this.xmlService.parseToMT940List(content, {
               attrkey: 'attribute',
-            })
+            }) as Observable<MT940[]>)
       ),
-      toArray(),
       map(this.validationService.validateMT940),
       tap(transactions => this._report.next(transactions))
     );

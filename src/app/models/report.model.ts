@@ -1,4 +1,3 @@
 export interface ReportFile {
-  content?: string;
-  error?: Error;
+  content: string;
 }

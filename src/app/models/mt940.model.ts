@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import * as XmlParser from 'xml2js';
 
 export interface MT940 {
@@ -10,7 +11,7 @@ export interface MT940 {
 }
 
 export interface MT940Parser {
-  parseToMT940List(data: string, options?: CSVParserOptions | XmlParser.ParserOptions): MT940[];
+  parseToMT940List(data: string, options?: CSVParserOptions | XmlParser.ParserOptions): Observable<MT940[] | Error>;
   mapToMT940(record: any): MT940;
 }
 
