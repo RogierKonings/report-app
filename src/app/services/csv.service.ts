@@ -20,8 +20,7 @@ export class CSVService implements MT940Parser {
     data: string,
     options: CSVParserOptions
   ): Observable<MT940[]> {
-    console.log('records:', data.split(/\r\n|\n/))
-    const records = data.split(/\r\n|\n/).slice(1, -1);
+    const records = data.split(/\r\n|\n/).slice(1).filter(value => value !== '');
     return of(
       records.map(record => this.mapToMT940(record.split(options.delimiter)))
     );

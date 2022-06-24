@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 
 class ReportServiceMock {
   createReport() {
-    jest.fn();
+    return of([])
   }
 }
 
@@ -32,30 +32,13 @@ describe('ReportPageComponent', () => {
   });
 
   describe('when opening a file', () => {
-    it('should call the create report method from the report service', () => {
+    it('should call the create report method from the report service', waitForAsync(() => {
       const blob = new Blob([''], { type: 'text/csv' });
       const fakeFile = blob as File;
 
-      spyOn(reportService, 'createReport').and.returnValue(of({}));
+      jest.spyOn(reportService, 'createReport');
       component.openFile(fakeFile);
-      expect(reportService.report$).toEqual('')
-    });
-
-    // it('should show an error message when the report service returns an error', () => {
-    //   const blob = new Blob([''], { type: 'text/csv' });
-    //   const fakeFile = blob as File;
-
-    //   spyOn(reportService, 'createReport').and.throwError(
-    //     'something went wrong!'
-    //   );
-
-    //   component.openFile(fakeFile);
-    //   fixture.detectChanges();
-    //   const warning = fixture.debugElement.query(
-    //     By.css('.alert-danger')
-    //   ).nativeElement;
-
-    //   expect(warning).toBeTruthy();
-    // });
+      expect(reportService.createReport).toHaveBeenCalled()
+    }));
   });
 });

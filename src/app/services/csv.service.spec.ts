@@ -9,7 +9,6 @@ const MT940CSVStub = `Reference,Account Number,Description,Start Balance,Mutatio
 
 describe('CSVService', () => {
   beforeEach(() => {
-
     TestBed.configureTestingModule({
       imports: [],
       providers: [CSVService],
