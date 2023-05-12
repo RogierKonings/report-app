@@ -1,0 +1,7 @@
+{
+  "name": "report-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}

@@ -8,7 +8,8 @@
     "clean": "rimraf dist",
     "release": "npm-run-all -s clean lint test build-prod",
     "build-prod": "ng build",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "ionic:serve": "npm run start"
   },
   "private": true,
   "dependencies": {
