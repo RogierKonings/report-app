@@ -9,16 +9,19 @@ Techstack:
 - `Capacitor`
 
 Libraries:
-- `xml2js` is used to parse the XML files. For backwards compatibility because of CommonJS modules in this library, `stream-browserify` and `timers-browserify` are used and the module is mentioned in angular.json as the allowedCommonJsDependency
+- `xml2js` is used to parse the XML files. For backwards compatibility because of CommonJS modules in this library
+- `stream-browserify` and `timers-browserify` are used and the module is mentioned in angular.json as the allowedCommonJsDependency
 - `iban` is used to change IBAN numbers for validity
 
-Run `npm run start` to run the application for local development
+Run `npm i -g yarn` to install yarn globally
 
-Run `npm run test` to run the unit-tests
+Run `yarn run start` to run the application for local development
 
-Run `npm run lint` to run eslint
+Run `yarn run test` to run the unit-tests
 
-Run `npm release` to make a release package
+Run `yarn run lint` to run eslint
+
+Run `yarn release` to make a release package
 
 The application uses a pre-commit hook with linting with `Husky`
 
