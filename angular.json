@@ -32,7 +32,7 @@
               "src/styles.scss"
             ],
             "scripts": [],
-            "allowedCommonJsDependencies": ["xml2js"]
+            "allowedCommonJsDependencies": ["xml2js", "iban"]
           },
           "configurations": {
             "production": {
@@ -119,6 +119,7 @@
   "cli": {
     "schematicCollections": [
       "@angular-eslint/schematics"
-    ]
+    ],
+    "analytics": false
   }
 }
