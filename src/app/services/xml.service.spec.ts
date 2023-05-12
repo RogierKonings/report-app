@@ -1,8 +1,8 @@
-import { TestBed, inject, waitForAsync } from '@angular/core/testing';
+import {TestBed, inject, waitForAsync} from '@angular/core/testing'
 
-import { XMLService } from './xml.service';
+import {XMLService} from './xml.service'
 
-import { MT940 } from '../models';
+import {MT940} from '../models'
 
 const ValidMT940XMLStub = `<records>
   <record reference="164702">
@@ -19,7 +19,7 @@ const ValidMT940XMLStub = `<records>
     <mutation>-939</mutation>
     <endBalance>6368</endBalance>
   </record>
-</records>`;
+</records>`
 
 const InvalidMT940XMLStub = `<records>
   <record reference="164702">
@@ -27,19 +27,19 @@ const InvalidMT940XMLStub = `<records>
     <description>Flowers for Rik Dekker</description>
     <startBalance>81.89</startBalance>
     <mutation>+5.99</mutation>
-    <endBalance>87.88</endBalance>`;
+    <endBalance>87.88</endBalance>`
 
 describe('XMLService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [],
       providers: [XMLService],
-    });
-  });
+    })
+  })
 
   it('should be created', inject([XMLService], (service: XMLService) => {
-    expect(service).toBeTruthy();
-  }));
+    expect(service).toBeTruthy()
+  }))
 
   describe('Create MT940 from XML', () => {
     it('return MT940 Object in case of valid XML format', waitForAsync(
@@ -61,16 +61,16 @@ describe('XMLService', () => {
             mutation: -939,
             endBalance: 6368,
           },
-        ];
+        ]
         service
           .parseToMT940List(ValidMT940XMLStub, {
             attrkey: 'attribute',
           })
-          .subscribe(result => {
-            expect(result).toEqual(response);
-          });
-      })
-    ));
+          .subscribe((result) => {
+            expect(result).toEqual(response)
+          })
+      }),
+    ))
 
     it('should throw an error in case of invalid CSV format', waitForAsync(
       inject([XMLService], (service: XMLService) => {
@@ -79,12 +79,9 @@ describe('XMLService', () => {
             attrkey: 'attribute',
           })
           .subscribe({
-            error: err =>
-              expect(err).toEqual(
-                new Error('Unable to parse the text/xml type')
-              ),
-          });
-      })
-    ));
-  });
-});
+            error: (err) => expect(err).toEqual(new Error('Unable to parse the text/xml type')),
+          })
+      }),
+    ))
+  })
+})

@@ -1,10 +1,10 @@
 export interface ValidationField {
-  transactionReference: number;
-  errors: ValidationError[];
+  transactionReference: number
+  errors: ValidationError[]
 }
 
 export interface ValidationError {
-  message: ValidationErrorMessages;
+  message: ValidationErrorMessages
 }
 
 export enum ValidationErrorMessages {
@@ -14,5 +14,5 @@ export enum ValidationErrorMessages {
   StartBalanceNotValidNumber = 'Start Balance is not a valid number.',
   MutationNotValidNumber = 'Mutation is not a valid number.',
   EndBalanceNotValidNumber = 'End Balance is not a valid number.',
-  EndBalanceNotValidCalculation = 'The calculation of the end balance is not valid.'
+  EndBalanceNotValidCalculation = 'The calculation of the end balance is not valid.',
 }

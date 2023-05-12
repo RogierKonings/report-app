@@ -1,12 +1,8 @@
-import { TestBed, inject } from '@angular/core/testing';
+import {TestBed, inject} from '@angular/core/testing'
 
-import { ValidationService } from './validation.service';
+import {ValidationService} from './validation.service'
 
-import {
-  MT940,
-  ValidationField,
-  ValidationErrorMessages,
-} from '../models';
+import {MT940, ValidationField, ValidationErrorMessages} from '../models'
 
 const UniqueTransactionReferenceStub: MT940[] = [
   {
@@ -33,7 +29,7 @@ const UniqueTransactionReferenceStub: MT940[] = [
     mutation: -16.05,
     endBalance: 55.82,
   },
-];
+]
 
 const NotUniqueTransactionReferenceStub: MT940[] = [
   {
@@ -76,7 +72,7 @@ const NotUniqueTransactionReferenceStub: MT940[] = [
     mutation: -33.21,
     endBalance: 19,
   },
-];
+]
 
 const NotNumberTransactionReferenceStub: unknown[] = [
   {
@@ -87,7 +83,7 @@ const NotNumberTransactionReferenceStub: unknown[] = [
     mutation: -33.21,
     endBalance: 19,
   },
-];
+]
 
 const StartBalanceNumberStub: MT940[] = [
   {
@@ -98,7 +94,7 @@ const StartBalanceNumberStub: MT940[] = [
     mutation: -33.21,
     endBalance: 19,
   },
-];
+]
 
 const StartBalanceNullStub: unknown[] = [
   {
@@ -109,9 +105,9 @@ const StartBalanceNullStub: unknown[] = [
     mutation: -33.21,
     endBalance: 19,
   },
-];
+]
 
-const MutationEmptyStringStub: unknown[]  = [
+const MutationEmptyStringStub: unknown[] = [
   {
     transactionReference: 112806,
     accountNumber: 'NL91RABO0315273637',
@@ -120,9 +116,9 @@ const MutationEmptyStringStub: unknown[]  = [
     mutation: '',
     endBalance: 19,
   },
-];
+]
 
-const EndBalanceStringStub: unknown[]  = [
+const EndBalanceStringStub: unknown[] = [
   {
     transactionReference: 112806,
     accountNumber: 'NL91RABO0315273637',
@@ -131,7 +127,7 @@ const EndBalanceStringStub: unknown[]  = [
     mutation: -33.21,
     endBalance: '19k',
   },
-];
+]
 
 const EndBalanceCorrectStub: MT940[] = [
   {
@@ -166,7 +162,7 @@ const EndBalanceCorrectStub: MT940[] = [
     mutation: -16.05,
     endBalance: 55.82,
   },
-];
+]
 
 const EndBalanceNotCorrectStub: MT940[] = [
   {
@@ -201,142 +197,92 @@ const EndBalanceNotCorrectStub: MT940[] = [
     mutation: -16.05,
     endBalance: 55.83,
   },
-];
+]
 
 describe('ValidationService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [],
       providers: [ValidationService],
-    });
-  });
+    })
+  })
 
-  it('should be created', inject(
-    [ValidationService],
-    (service: ValidationService) => {
-      expect(service).toBeTruthy();
-    }
-  ));
+  it('should be created', inject([ValidationService], (service: ValidationService) => {
+    expect(service).toBeTruthy()
+  }))
 
   describe('Validates MT940', () => {
     describe('Transaction Reference', () => {
-      it('should return empty errors when unique', inject(
-        [ValidationService],
-        (service: ValidationService) => {
-          const results: ValidationField[] = service.validateMT940(
-            UniqueTransactionReferenceStub
-          );
-          results.forEach((value: ValidationField) =>
-            expect(value.errors.length).toEqual(0)
-          );
-        }
-      ));
+      it('should return empty errors when unique', inject([ValidationService], (service: ValidationService) => {
+        const results: ValidationField[] = service.validateMT940(UniqueTransactionReferenceStub)
+        results.forEach((value: ValidationField) => expect(value.errors.length).toEqual(0))
+      }))
 
       it('should return proper error message if not unique', inject(
         [ValidationService],
         (service: ValidationService) => {
-          const results: ValidationField[] = service.validateMT940(
-            NotUniqueTransactionReferenceStub
-          );
-          expect(results[1].errors[0].message).toEqual(
-            ValidationErrorMessages.TransactionReferenceNotUnique
-          );
-          expect(results[4].errors[0].message).toEqual(
-            ValidationErrorMessages.TransactionReferenceNotUnique
-          );
-        }
-      ));
+          const results: ValidationField[] = service.validateMT940(NotUniqueTransactionReferenceStub)
+          expect(results[1].errors[0].message).toEqual(ValidationErrorMessages.TransactionReferenceNotUnique)
+          expect(results[4].errors[0].message).toEqual(ValidationErrorMessages.TransactionReferenceNotUnique)
+        },
+      ))
 
       it('should return proper error message if not a number', inject(
         [ValidationService],
         (service: ValidationService) => {
-          const results: ValidationField[] = service.validateMT940(
-            NotNumberTransactionReferenceStub as MT940[]
-          );
-          expect(results[0].errors[0].message).toEqual(
-            ValidationErrorMessages.TransactionReferenceNotValidNumber
-          );
-        }
-      ));
-    });
+          const results: ValidationField[] = service.validateMT940(NotNumberTransactionReferenceStub as MT940[])
+          expect(results[0].errors[0].message).toEqual(ValidationErrorMessages.TransactionReferenceNotValidNumber)
+        },
+      ))
+    })
 
     describe('Start Balance, Mutation, End Balance', () => {
-      it('should return empty errors if a number', inject(
-        [ValidationService],
-        (service: ValidationService) => {
-          const results: ValidationField[] = service.validateMT940(
-            StartBalanceNumberStub
-          );
-          results.forEach((value: ValidationField) =>
-            expect(value.errors.length).toEqual(0)
-          );
-        }
-      ));
+      it('should return empty errors if a number', inject([ValidationService], (service: ValidationService) => {
+        const results: ValidationField[] = service.validateMT940(StartBalanceNumberStub)
+        results.forEach((value: ValidationField) => expect(value.errors.length).toEqual(0))
+      }))
 
       it('should return proper error messages if not a number', inject(
         [ValidationService],
         (service: ValidationService) => {
-          const resultsStartBalance: ValidationField[] =
-            service.validateMT940(StartBalanceNullStub as MT940[]);
-          expect(resultsStartBalance[0].errors[0].message).toEqual(
-            ValidationErrorMessages.StartBalanceNotValidNumber
-          );
+          const resultsStartBalance: ValidationField[] = service.validateMT940(StartBalanceNullStub as MT940[])
+          expect(resultsStartBalance[0].errors[0].message).toEqual(ValidationErrorMessages.StartBalanceNotValidNumber)
           expect(resultsStartBalance[0].errors[1].message).toEqual(
-            ValidationErrorMessages.EndBalanceNotValidCalculation
-          );
+            ValidationErrorMessages.EndBalanceNotValidCalculation,
+          )
 
-          const resultsMutation: ValidationField[] = service.validateMT940(
-            MutationEmptyStringStub as MT940[]
-          );
-          expect(resultsMutation[0].errors[0].message).toEqual(
-            ValidationErrorMessages.MutationNotValidNumber
-          );
+          const resultsMutation: ValidationField[] = service.validateMT940(MutationEmptyStringStub as MT940[])
+          expect(resultsMutation[0].errors[0].message).toEqual(ValidationErrorMessages.MutationNotValidNumber)
           expect(resultsStartBalance[0].errors[1].message).toEqual(
-            ValidationErrorMessages.EndBalanceNotValidCalculation
-          );
+            ValidationErrorMessages.EndBalanceNotValidCalculation,
+          )
 
-          const resultsEndBalance: ValidationField[] =
-            service.validateMT940(EndBalanceStringStub as MT940[]);
-          expect(resultsEndBalance[0].errors[0].message).toEqual(
-            ValidationErrorMessages.EndBalanceNotValidNumber
-          );
+          const resultsEndBalance: ValidationField[] = service.validateMT940(EndBalanceStringStub as MT940[])
+          expect(resultsEndBalance[0].errors[0].message).toEqual(ValidationErrorMessages.EndBalanceNotValidNumber)
           expect(resultsStartBalance[0].errors[1].message).toEqual(
-            ValidationErrorMessages.EndBalanceNotValidCalculation
-          );
-        }
-      ));
+            ValidationErrorMessages.EndBalanceNotValidCalculation,
+          )
+        },
+      ))
 
       it('should return empty errors message if end balance is correct', inject(
         [ValidationService],
         (service: ValidationService) => {
-          const results: ValidationField[] = service.validateMT940(
-            EndBalanceCorrectStub
-          );
-          results.forEach((value: ValidationField) =>
-            expect(value.errors.length).toEqual(0)
-          );
-        }
-      ));
+          const results: ValidationField[] = service.validateMT940(EndBalanceCorrectStub)
+          results.forEach((value: ValidationField) => expect(value.errors.length).toEqual(0))
+        },
+      ))
 
       it('should return proper error message if end balance is not correct', inject(
         [ValidationService],
         (service: ValidationService) => {
-          const resultsEndBalance: ValidationField[] =
-            service.validateMT940(EndBalanceNotCorrectStub);
-          expect(resultsEndBalance[0].errors[0].message).toEqual(
-            ValidationErrorMessages.EndBalanceNotValidCalculation
-          );
-          expect(resultsEndBalance[1].errors[0].message).toEqual(
-            ValidationErrorMessages.EndBalanceNotValidCalculation
-          );
-          expect(resultsEndBalance[2].errors[0].message).toEqual(
-            ValidationErrorMessages.EndBalanceNotValidCalculation
-          );
-          expect(resultsEndBalance[3].errors[0].message).toEqual(
-            ValidationErrorMessages.EndBalanceNotValidCalculation
-          );
-        }
-      ));
-    });
-  });
-});
+          const resultsEndBalance: ValidationField[] = service.validateMT940(EndBalanceNotCorrectStub)
+          expect(resultsEndBalance[0].errors[0].message).toEqual(ValidationErrorMessages.EndBalanceNotValidCalculation)
+          expect(resultsEndBalance[1].errors[0].message).toEqual(ValidationErrorMessages.EndBalanceNotValidCalculation)
+          expect(resultsEndBalance[2].errors[0].message).toEqual(ValidationErrorMessages.EndBalanceNotValidCalculation)
+          expect(resultsEndBalance[3].errors[0].message).toEqual(ValidationErrorMessages.EndBalanceNotValidCalculation)
+        },
+      ))
+    })
+  })
+})

@@ -1,3 +1,11 @@
-<input #fileInput hidden="true" type="file" name="{{name}}" accept="{{acceptedTypes}}"
-  (change)="inputChanged($event)" />
-<button mat-flat-button color="primary" (click)="fileInput.click()">Choose Spreadsheet File ({{acceptedTypes}})</button>
+<input
+  #fileInput
+  hidden="true"
+  type="file"
+  name="{{ name }}"
+  accept="{{ acceptedTypes }}"
+  (change)="inputChanged($event)"
+/>
+<button mat-flat-button color="primary" (click)="fileInput.click()">
+  Choose Spreadsheet File ({{ acceptedTypes }})
+</button>

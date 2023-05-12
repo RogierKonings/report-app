@@ -1,11 +1,15 @@
 <app-page-wrapper>
   <div class="container">
     <section>
-      <app-file-upload name="MT940 upload" acceptedTypes=".csv, .xml" (inputChange)="openFile($event)"></app-file-upload>
+      <app-file-upload
+        name="MT940 upload"
+        acceptedTypes=".csv, .xml"
+        (inputChange)="openFile($event)"
+      ></app-file-upload>
     </section>
     <section>
       <app-report-table *ngIf="transactions$ | async as transactions" [transactions]="transactions"></app-report-table>
-      <span *ngIf="error$ | async as error" class="alert-danger" role="alert">{{error}}</span>
+      <span *ngIf="error$ | async as error" class="alert-danger" role="alert">{{ error }}</span>
     </section>
   </div>
 </app-page-wrapper>
