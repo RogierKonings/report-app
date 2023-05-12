@@ -1,10 +1,12 @@
 # ReportApp
 
 Techstack:
-- `Angular v13`
+- `Angular v16`
 - `RxJs`
 - `Typescript`
 - `Jest`
+- `Ionic`
+- `Capacitor`
 
 Libraries:
 - `xml2js` is used to parse the XML files. For backwards compatibility because of CommonJS modules in this library, `stream-browserify` and `timers-browserify` are used and the module is mentioned in angular.json as the allowedCommonJsDependency

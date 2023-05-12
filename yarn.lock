@@ -1354,6 +1354,11 @@
   dependencies:
     jsonc-parser "^3.0.0"
 
+"@capacitor/app@^5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@capacitor/app/-/app-5.0.2.tgz#79a448ff0a5a1158f362874987d813e22a7bd004"
+  integrity sha512-TRs5Iu94+IfUJ4iiljWC0tuVsHXBOD4asADggpUH6DnwlQo3cVuRnFK+A0jJnWW9GvlFy9uTsXxytzzXP/V0vQ==
+
 "@capacitor/cli@latest":
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-5.0.3.tgz#5f0549f4b731bc999cafd1b9dc89925bbd51ac13"
@@ -1384,10 +1389,25 @@
   dependencies:
     tslib "^2.1.0"
 
+"@capacitor/haptics@^5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@capacitor/haptics/-/haptics-5.0.2.tgz#77a4e686c394d83627c8c82bd293a2a2f5744b51"
+  integrity sha512-HGkvL3a8yW26YVR7pfgMpkJrspD0+9sUrBB77SWR/GqQV+m32FTx9ECGlw+sHhwLnv0XtFx4PocIL5SlU1m3Vw==
+
 "@capacitor/ios@^5.0.3":
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/@capacitor/ios/-/ios-5.0.3.tgz#d363b83efa96732301ff6b99d3389709e79fb79d"
   integrity sha512-4U+mfiT0x2oYEJN9NAxcYKdrK4szROMe8SgIiG2lXDG7t7FK1OY4BnB1euZc8c+49VcBSk9x2EiYQg5Nshi5iQ==
+
+"@capacitor/keyboard@^5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@capacitor/keyboard/-/keyboard-5.0.2.tgz#6070f15b3257ce72aedc79ed005d084f45c57e35"
+  integrity sha512-5qauopAd9Dlltzi87i/WHMBsocCf0BJqVxRZ3H+kifQm4BLHGokrzuanddEJd6MPOnglSl3H3C9oElJB3wkVVQ==
+
+"@capacitor/status-bar@^5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@capacitor/status-bar/-/status-bar-5.0.2.tgz#7480153ca28b6eafd718b1f9a06a7c48d31e88e8"
+  integrity sha512-5emXUQzx9WnQHnxzapghrqm8P80z7IPLM83PTsfN+NOkm3uw3ZOxB4T7qy9NBV2Zp+GCEpr1UrNBowxV7Ami3Q==
 
 "@discoveryjs/json-ext@0.5.7":
   version "0.5.7"
